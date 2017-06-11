@@ -44,7 +44,7 @@ class ReportHandler
     public function run()
     {
         $reportFilepath = $this->build->getBuildPath() .
-            $this->codeceptConfig['paths']['log'] . DIRECTORY_SEPARATOR . 'report.json';
+            $this->getLogPath() . DIRECTORY_SEPARATOR . 'report.json';
 
         $parser = new ReportParserJson($reportFilepath);
         $parsed = $parser->parse();
@@ -81,6 +81,28 @@ class ReportHandler
         $this->build->storeMeta('codeception-meta', $storedMeta);
         $this->build->storeMeta('codeception-data', $storedData);
         $this->build->storeMeta('codeception-errors', $storedErrors);
+    }
+
+    /**
+     * @return string
+     * @throws Exception
+     */
+    private function getLogPath()
+    {
+        $logpath = '';
+        if(isset($this->codeceptConfig['paths']['log'])){
+            $logpath = $this->codeceptConfig['paths']['log'];
+        }
+
+        if(isset($this->codeceptConfig['paths']['output'])){
+            $logpath = $this->codeceptConfig['paths']['output'];
+        }
+
+        if($logpath === ''){
+            throw new Exception("Log or output path not configured in codeception.yml");
+        }
+
+        return $logpath;
     }
 
     /**
