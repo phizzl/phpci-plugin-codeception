@@ -1,0 +1,19 @@
+{
+  "autoload": {
+    "psr-4": {"Phizzl\\PHPCI\\Plugins\\Codeception\\": "src/"}
+  },
+  "tags": ["phpci", "codeception"],
+  "require": {},
+  "licence": "GPL-3.0",
+  "bin": [],
+  "name": "phizzl/phpci-plugin-codeception",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Phillip Schleicher",
+      "email": "the@phizzl.de",
+      "homepage": "http://phizzl.de",
+      "role": "Developer"
+    }
+  ]
+}
