@@ -60,9 +60,18 @@ class ReportParserJson
                 continue;
             }
 
-            $testClassAndMethod = explode('::', (string)$item['test']);
-            $testClass = $testClassAndMethod[0];
-            $testMethod = $testClassAndMethod[1];
+            $testClass = '';
+            $testName = $item['test'];
+            if(strpos($item['test'], '::') !== false){
+                $testClassAndMethod = explode('::', (string)$item['test']);
+                $testClass = $testClassAndMethod[0];
+                $testName = $testClassAndMethod[1];
+            }
+            elseif(($pos = strpos($item['test'], ':')) !== false
+                && strpos($item['test'], 'Cest') !== false){
+                $testClass = substr($item['test'], 0, $pos);
+            }
+
             $message = isset($item['message']) ? (string)$item['message'] : '';
 
             if(isset($item['trace'])
@@ -72,7 +81,7 @@ class ReportParserJson
 
             $formatted[] = array(
                 'suite' => isset($item['suite']) ? (string)$item['suite'] : '',
-                'name' => $testMethod,
+                'name' => $testName,
                 'feature' => (string)$item['test'],
                 'assertions' => isset($item['assertions']) ? (int)$item['assertions'] : '',
                 'time' => isset($item['time']) ? (float)$item['time'] : '',
