@@ -37,7 +37,7 @@ class ReportParserJson
     public function parse()
     {
         if(!$contents = file_get_contents($this->filepath)){
-            throw new Exception("File could not be opened!");
+            throw new Exception("File \"{$this->filepath}\" could not be opened!");
         }
 
         if(!$parsed = json_decode($contents, true)){
