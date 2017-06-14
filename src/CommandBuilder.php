@@ -54,7 +54,7 @@ class CommandBuilder
     {
         return "{$this->codecept} run {$this->suite} " .
             "-c \"{$this->configFile}\" " .
-            "--json report.json --report " .
+            "--json report.json --steps " .
             $this->options->getOption('args', '');
     }
 }
