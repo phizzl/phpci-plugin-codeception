@@ -40,11 +40,11 @@ class ReportParserJson
             throw new Exception("File \"{$this->filepath}\" could not be opened!");
         }
 
-        if(!$parsed = json_decode($contents, true)){
+        if(trim($contents) !== '' && !($parsed = json_decode($contents, true))){
             $parsed = $this->tryToParseParts($contents);
         }
 
-        return $this->formatParsed($parsed);
+        return isset($parsed) ? $this->formatParsed($parsed) : [];
     }
 
     /**
